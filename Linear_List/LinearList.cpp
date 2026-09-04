@@ -56,12 +56,42 @@ bool ListInsert(SqList &L, int i, int e) {
     return true;
 }
 
+/*
+删除表
+*/
+bool ListDelete(SqList &L, int i, int &e) {
+    if (i < 1 || i > L.length)
+        return false;
+
+    e = L.data[i - 1];
+
+    for (int j = i; j < L.length; j++) {
+        L.data[j - 1] = L.data[j];
+    }
+
+    L.length--;
+    return true;
+}
+
+/*
+查找表中第一个值为e的元素，返回其位置
+*/
+int LocateElem(SqList &L, int e) {
+    for (int i = 0; i < L.length; i++)
+        if (L.data[i] == e)
+            return i + 1;
+
+    return 0;
+}
+
 int main() {
     SqList L;
     InitList(L);
     cout << "Initial MaxSize: " << L.MaxSize << endl;
-    IncreaseSize(L, 5);
-    cout << "New MaxSize after increase: " << L.MaxSize << endl;
 
+    for (int i = 1; i <= 5; i++)
+        ListInsert(L, i, i);
+
+    cout << LocateElem(L, 5) << endl;
     return 0;
 }
